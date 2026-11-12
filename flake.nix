@@ -32,7 +32,7 @@
       };
     in
     {
-      nixosConfigurations.VORONjord = target;
+      nixosConfigurations.MoLK = target;
 
       # nix build .#nixosConfigurations.installer.config.system.build.isoImage
       nixosConfigurations.installer = nixpkgs.lib.nixosSystem {
