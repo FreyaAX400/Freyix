@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  system.stateVersion = "25.11"; # set to the release you install from; never bump it afterwards
+  system.stateVersion = "26.05"; # set to the release you install from; never bump it afterwards
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
@@ -22,9 +22,9 @@
   services.btrfs.autoScrub = { enable = true; interval = "monthly"; fileSystems = [ "/" ]; };
 
   # --- host ---
-  networking.hostName = "VORONjord";
+  networking.hostName = "MoLK";
   networking.networkmanager.enable = true;
-  time.timeZone = "Europe/Oslo";
+  time.timeZone = "United_States/Los_Angeles";
   i18n.defaultLocale = "en_GB.UTF-8";
   services.xserver.xkb.layout = "us"; # TODO: set your actual layout
   console.useXkbConfig = true;
@@ -41,6 +41,8 @@
   hardware.cpu.amd.updateMicrocode = true;
   hardware.graphics = { enable = true; enable32Bit = true; };
   services.xserver.videoDrivers = [ "nvidia" ];
+  services.flatpak.enable = true;
+xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   hardware.nvidia = {
     modesetting.enable = true;
     open = false; # proprietary module, matching your old nvidia-dkms setup
@@ -61,7 +63,7 @@
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+      command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd start-hyprland";
       user = "greeter";
     };
   };
@@ -82,10 +84,9 @@
 
   # --- packages ---
   environment.systemPackages = with pkgs; [
-    waterfox # verify: `nix search nixpkgs waterfox`
     kitty
     git neovim wget curl htop pciutils usbutils
     btrfs-progs compsize
-    wl-clipboard grim slurp
+    wl-clipboard grim slurp tailscale openssh
   ];
 }
