@@ -90,4 +90,3 @@ xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     wl-clipboard grim slurp tailscale openssh
   ];
 }
-x

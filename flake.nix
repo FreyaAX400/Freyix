@@ -14,7 +14,7 @@
     };
   };
 
-  outputs = { nixpkgs, zen, disko, home-manager, ... }:
+  outputs = { nixpkgs, nixpkgs-zen, disko, home-manager, ... }:
     let
       target = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
