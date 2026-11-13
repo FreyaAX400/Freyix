@@ -16,9 +16,13 @@
 
   outputs = { nixpkgs, nixpkgs-zen, disko, home-manager, ... }:
     let
+      zenPkgs = import nixpkgs-zen {
+  system = "x86_64-linux";
+  config.allowUnfree = true;
+};
       target = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { zenKernel = nixpkgs-zen.legacyPackages.x86_64-linux.linux_zen; };
+        specialArgs = { zenKernel = zenPkgs.linux_zen; };
         modules = [
           disko.nixosModules.disko
           (import ./disko.nix { })

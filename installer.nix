@@ -1,3 +1,4 @@
+nixpkgs.config.allowUnfree = true;
 { pkgs, modulesPath, target, swapped, ... }:
 {
   imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix" ];
