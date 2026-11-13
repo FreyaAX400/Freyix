@@ -28,6 +28,7 @@
   i18n.defaultLocale = "en_GB.UTF-8";
   services.xserver.xkb.layout = "us"; # TODO: set your actual layout
   console.useXkbConfig = true;
+  hardware.enableRedistributableFirmware = true;
 
   # --- user ---
   users.users.freyaax400 = {
