@@ -1,13 +1,12 @@
-# Pooled btrfs across two NVMe drives: data=single, metadata=raid1.
-# Swap these for /dev/disk/by-id/... paths before running -- nvmeXn1 numbering can swap between boots.
+{ big ? "/dev/nvme0n1", small ? "/dev/nvme1n1" }:
 let
-  big = "/dev/nvme0n1";   # 1.75TiB
-  small = "/dev/nvme1n1"; # SK hynix 1TB
   mountOpts = [ "compress=zstd" "noatime" ];
 in
 {
+  # attribute names matter: "extra" sorts before "main", so its partition exists
+  # before mkfs.btrfs references it
   disko.devices.disk = {
-    big = {
+    main = {
       type = "disk";
       device = big;
       content = {
@@ -27,8 +26,7 @@ in
             size = "100%";
             content = {
               type = "btrfs";
-              # mkfs.btrfs: second device joins the pool
-              extraArgs = [ "-f" "-d" "single" "-m" "raid1" "/dev/disk/by-partlabel/disk-small-pool" ];
+              extraArgs = [ "-f" "-d" "single" "-m" "raid1" "/dev/disk/by-partlabel/disk-extra-pool" ];
               subvolumes = {
                 "@"     = { mountpoint = "/";        mountOptions = mountOpts; };
                 "@home" = { mountpoint = "/home";    mountOptions = mountOpts; };
@@ -40,15 +38,12 @@ in
         };
       };
     };
-    small = {
+    extra = {
       type = "disk";
       device = small;
       content = {
         type = "gpt";
-        partitions.pool = {
-          size = "100%";
-          # no content: it is attached to the filesystem above via extraArgs
-        };
+        partitions.pool = { size = "100%"; };
       };
     };
   };

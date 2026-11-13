@@ -19,7 +19,7 @@
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
-          ./disko.nix
+          (import ./disko.nix { })
           ./hardware-configuration.nix
           ./configuration.nix
           home-manager.nixosModules.home-manager
@@ -30,14 +30,21 @@
           }
         ];
       };
+
+      # same layout with the two drives' roles swapped, picked at install time by size
+      swapped = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko
+          (import ./disko.nix { big = "/dev/nvme1n1"; small = "/dev/nvme0n1"; })
+        ];
+      };
     in
     {
       nixosConfigurations.MoLK = target;
-
-      # nix build .#nixosConfigurations.installer.config.system.build.isoImage
       nixosConfigurations.installer = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit target; };
+        specialArgs = { inherit target swapped; };
         modules = [ ./installer.nix ];
       };
     };
