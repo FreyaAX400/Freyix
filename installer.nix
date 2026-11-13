@@ -1,8 +1,8 @@
-nixpkgs.config.allowUnfree = true;
 { pkgs, modulesPath, target, swapped, ... }:
 {
   imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix" ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nixpkgs.config.allowUnfree = true;
 
   isoImage.storeContents = [
     target.config.system.build.toplevel
