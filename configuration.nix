@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, zenKernel, ... }:
 
 {
   system.stateVersion = "26.05"; # set to the release you install from; never bump it afterwards
@@ -13,7 +13,7 @@
   # --- boot / kernel ---
   boot.loader.systemd-boot = { enable = true; configurationLimit = 20; };
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackagesFor zenKernel;
   boot.supportedFilesystems = [ "btrfs" ];
   boot.kernelParams = [
     "nvme_core.default_ps_max_latency_us=0" # disable APST: stops the drive sleeping into I/O errors
@@ -90,3 +90,4 @@ xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     wl-clipboard grim slurp tailscale openssh
   ];
 }
+x

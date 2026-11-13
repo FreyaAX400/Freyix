@@ -14,10 +14,11 @@
     };
   };
 
-  outputs = { nixpkgs, disko, home-manager, ... }:
+  outputs = { nixpkgs, zen, disko, home-manager, ... }:
     let
       target = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { zenKernel = nixpkgs-zen.legacyPackages.x86_64-linux.linux_zen; };
         modules = [
           disko.nixosModules.disko
           (import ./disko.nix { })
