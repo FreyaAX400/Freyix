@@ -56,11 +56,28 @@
         "type": "github"
       }
     },
+    "nixpkgs-zen": {
+      "locked": {
+        "lastModified": 1793710905,
+        "narHash": "sha256-lg2yH2bTgwKGeyg0LTQVleH6beQq6dXSsLzsRbqK/MI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7929f16806e06c78a81d297e04cc8d03551f59fc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7929f16806e06c78a81d297e04cc8d03551f59fc",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-zen": "nixpkgs-zen"
       }
     }
   },
