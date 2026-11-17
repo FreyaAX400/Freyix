@@ -16,8 +16,8 @@
   boot.kernelPackages = pkgs.linuxPackagesFor zenKernel;
   boot.supportedFilesystems = [ "btrfs" ];
   boot.kernelParams = [
-    "nvme_core.default_ps_max_latency_us=0" # disable APST: stops the drive sleeping into I/O errors
-    "nvme_core.io_timeout=255"              # tolerate slow wakes instead of failing the I/O
+    "nvme_core.default_ps_max_latency_us=0" # disable APST: stops drive from sleeping into I/O errors
+    "nvme_core.io_timeout=255"              # tolerate slow wakes instead of failing the I/O )(if previous line is ineffective)
   ];
   services.btrfs.autoScrub = { enable = true; interval = "monthly"; fileSystems = [ "/" ]; };
 
@@ -26,7 +26,7 @@
   networking.networkmanager.enable = true;
   time.timeZone = "United_States/Los_Angeles";
   i18n.defaultLocale = "en_GB.UTF-8";
-  services.xserver.xkb.layout = "us"; # TODO: set your actual layout
+  services.xserver.xkb.layout = "us";
   console.useXkbConfig = true;
   hardware.enableRedistributableFirmware = true;
 
@@ -35,10 +35,9 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "input" "gamemode" ];
     shell = pkgs.bash;
-    # initialPassword = "changeme"; # set, log in, run passwd, remove
   };
 
-  # --- graphics: NVIDIA only (iGPU disabled in firmware) ---
+  # --- graphics ---
   hardware.cpu.amd.updateMicrocode = true;
   hardware.graphics = { enable = true; enable32Bit = true; };
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -49,14 +48,6 @@ xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     open = false; # proprietary module, matching your old nvidia-dkms setup
     nvidiaSettings = false;
     package = config.boot.kernelPackages.nvidiaPackages.production;
-    # To hold the 595.71.05 pin instead (first build fails and prints the real hashes):
-    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-    #   version = "595.71.05";
-    #   sha256_64bit = lib.fakeHash;
-    #   openSha256 = lib.fakeHash;
-    #   settingsSha256 = lib.fakeHash;
-    #   persistencedSha256 = lib.fakeHash;
-    # };
   };
 
   # --- desktop ---
@@ -86,8 +77,11 @@ xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   # --- packages ---
   environment.systemPackages = with pkgs; [
     kitty
-    git neovim wget curl htop pciutils usbutils
+    git neovim wget curl btop pciutils usbutils
     btrfs-progs compsize
-    wl-clipboard grim slurp tailscale openssh
+    wl-clipboard grim slurp openssh tailscale
+    fastfetch
   ];
+
+
 }
