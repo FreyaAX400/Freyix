@@ -15,7 +15,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackagesFor zenKernel;
   boot.supportedFilesystems = [ "btrfs" ];
+  boot.consolelogLevel = 3;
   boot.kernelParams = [
+    "loglevel=3"
     "nvme_core.default_ps_max_latency_us=0" # disable APST: stops drive from sleeping into I/O errors
     "nvme_core.io_timeout=255"              # tolerate slow wakes instead of failing the I/O )(if previous line is ineffective)
   ];
@@ -54,7 +56,7 @@ xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   programs.hyprland.enable = true;
   services.greetd = {
     enable = true;
-    settings.default_session = {
+    settings.default_session = {44
       command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd start-hyprland";
       user = "greeter";
     };
