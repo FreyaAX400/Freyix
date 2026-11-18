@@ -5,7 +5,11 @@
 
   programs.kitty = {
     enable = true;
-    extraConfig = builtins.readFile ./kitty.conf;
+    extraConfig = builtins.readFile ./configs/kitty.conf;
   };
 
+programs.hyprland = {
+  enable = true
+  extraconfig = builtins.readFile ./configs/hyprland.lua
+}
 }
