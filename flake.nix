@@ -37,7 +37,6 @@
         ];
       };
 
-      # same layout with the two drives' roles swapped, picked at install time by size
       swapped = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
