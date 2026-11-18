@@ -1,12 +1,11 @@
 { pkgs, ... }:
 {
-  home.stateVersion = "26.05"; # keep at the release you first installed; never bump
+  home.stateVersion = "26.05";
   programs.home-manager.enable = true;
 
   programs.kitty = {
     enable = true;
-    extraConfig = builtins.readFile ./kitty.conf; # your existing kitty.conf
+    extraConfig = builtins.readFile ./kitty.conf;
   };
 
-  # add user-level packages, git config, nvim, hypr config etc. here as you port them
 }

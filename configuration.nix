@@ -1,7 +1,7 @@
 { config, lib, pkgs, zenKernel, ... }:
 
 {
-  system.stateVersion = "26.05"; # set to the release you install from; never bump it afterwards
+  system.stateVersion = "26.05";
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
@@ -45,7 +45,7 @@
 xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   hardware.nvidia = {
     modesetting.enable = true;
-    open = false; # proprietary module, matching your old nvidia-dkms setup
+    open = false;
     nvidiaSettings = false;
     package = config.boot.kernelPackages.nvidiaPackages.production;
   };

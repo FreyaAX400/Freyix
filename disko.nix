@@ -3,8 +3,6 @@ let
   mountOpts = [ "compress=zstd" "noatime" ];
 in
 {
-  # attribute names matter: "extra" sorts before "main", so its partition exists
-  # before mkfs.btrfs references it
   disko.devices.disk = {
     main = {
       type = "disk";
