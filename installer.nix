@@ -1,7 +1,16 @@
-{ pkgs, modulesPath, target, swapped, ... }:
+{
+  pkgs,
+  modulesPath,
+  target,
+  swapped,
+  ...
+}:
 {
   imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix" ];
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nixpkgs.config.allowUnfree = true;
 
   isoImage.storeContents = [

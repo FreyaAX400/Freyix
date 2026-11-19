@@ -1,6 +1,12 @@
-{ big ? "/dev/nvme0n1", small ? "/dev/nvme1n1" }:
+{
+  big ? "/dev/nvme0n1",
+  small ? "/dev/nvme1n1",
+}:
 let
-  mountOpts = [ "compress=zstd" "noatime" ];
+  mountOpts = [
+    "compress=zstd"
+    "noatime"
+  ];
 in
 {
   disko.devices.disk = {
@@ -24,12 +30,31 @@ in
             size = "100%";
             content = {
               type = "btrfs";
-              extraArgs = [ "-f" "-d" "single" "-m" "raid1" "/dev/disk/by-partlabel/disk-extra-pool" ];
+              extraArgs = [
+                "-f"
+                "-d"
+                "single"
+                "-m"
+                "raid1"
+                "/dev/disk/by-partlabel/disk-extra-pool"
+              ];
               subvolumes = {
-                "@"     = { mountpoint = "/";        mountOptions = mountOpts; };
-                "@home" = { mountpoint = "/home";    mountOptions = mountOpts; };
-                "@nix"  = { mountpoint = "/nix";     mountOptions = mountOpts; };
-                "@log"  = { mountpoint = "/var/log"; mountOptions = mountOpts; };
+                "@" = {
+                  mountpoint = "/";
+                  mountOptions = mountOpts;
+                };
+                "@home" = {
+                  mountpoint = "/home";
+                  mountOptions = mountOpts;
+                };
+                "@nix" = {
+                  mountpoint = "/nix";
+                  mountOptions = mountOpts;
+                };
+                "@log" = {
+                  mountpoint = "/var/log";
+                  mountOptions = mountOpts;
+                };
               };
             };
           };
@@ -41,7 +66,9 @@ in
       device = small;
       content = {
         type = "gpt";
-        partitions.pool = { size = "100%"; };
+        partitions.pool = {
+          size = "100%";
+        };
       };
     };
   };

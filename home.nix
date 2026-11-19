@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   home.stateVersion = "26.05";
   programs.home-manager.enable = true;
@@ -8,8 +8,8 @@
     extraConfig = builtins.readFile ./configs/kitty.conf;
   };
 
-programs.hyprland = {
-  enable = true
-  extraconfig = builtins.readFile ./configs/hyprland.lua
-}
+  programs.hyprland = {
+    enable = true;
+    extraConfig = builtins.readFile ./configs/hyprland.lua;
+  };
 }

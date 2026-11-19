@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-zen.url = "github:NixOS/nixpkgs/7929f16806e06c78a81d297e04cc8d03551f59fc"; 
+    nixpkgs-zen.url = "github:NixOS/nixpkgs/7929f16806e06c78a81d297e04cc8d03551f59fc";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,15 +14,24 @@
     };
   };
 
-  outputs = { nixpkgs, nixpkgs-zen, disko, home-manager, ... }:
+  outputs =
+    {
+      nixpkgs,
+      nixpkgs-zen,
+      disko,
+      home-manager,
+      ...
+    }:
     let
       zenPkgs = import nixpkgs-zen {
-  system = "x86_64-linux";
-  config.allowUnfree = true;
-};
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
       target = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { zenKernel = zenPkgs.linux_zen; };
+        specialArgs = {
+          zenKernel = zenPkgs.linux_zen;
+        };
         modules = [
           disko.nixosModules.disko
           (import ./disko.nix { })
@@ -41,7 +50,10 @@
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
-          (import ./disko.nix { big = "/dev/nvme1n1"; small = "/dev/nvme0n1"; })
+          (import ./disko.nix {
+            big = "/dev/nvme1n1";
+            small = "/dev/nvme0n1";
+          })
         ];
       };
     in
