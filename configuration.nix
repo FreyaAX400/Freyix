@@ -50,8 +50,10 @@
   services.xserver.xkb.layout = "us";
   console.useXkbConfig = true;
   hardware.enableRedistributableFirmware = true;
+  services.tailscale.enable = true;
+  services.openssh.enable = true;
 
-  # --- user ---
+  # --- user ---lib
   users.users.freyaax400 = {
     isNormalUser = true;
     extraGroups = [
@@ -127,6 +129,24 @@
     openssh
     tailscale
     fastfetch
+    librewolf
+    xdg-utils
+    ripgrep
+    fd
+    unzip
+    p7zip
+    jq
+    lsof
+    psmisc
+    smartmontools
+    nvme-cli
+    ethtool
+    inetutils
+    brightnessctl
+    wireplumber
+    wiremix
+    nh
+    nix-tree
   ];
 
 }
