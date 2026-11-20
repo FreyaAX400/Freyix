@@ -10,7 +10,7 @@
 
   programs.hyprland = {
     enable = true;
-    extraConfig = builtins.readFile ./configs/hyprland.lua;
+    extraConfig = builtins.readFile ../configs/hyprland.lua;
   };
 
   programs.librewolf = {
