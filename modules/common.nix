@@ -20,7 +20,7 @@
   nixpkgs.config.allowUnfree = true;
 
   boot.supportedFilesystems = [ "btrfs" ];
-  boot.consolelogLevel = 3;
+  boot.consoleLogLevel = 3;
   services.btrfs.autoScrub = {
     enable = true;
     interval = "monthly";

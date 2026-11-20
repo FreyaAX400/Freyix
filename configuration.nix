@@ -30,7 +30,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackagesFor zenKernel;
   boot.supportedFilesystems = [ "btrfs" ];
-  boot.consolelogLevel = 3;
+  boot.consoleLogLevel = 3;
   boot.kernelParams = [
     "loglevel=3"
     "nvme_core.default_ps_max_latency_us=0" # disable APST: stops drive from sleeping into I/O errors

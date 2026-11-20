@@ -3,7 +3,6 @@
 { lib, pkgs, ... }:
 {
   # --- kernel ---
-  boot.kernelPackages = pkgs.linuxPackages_hardened;
   security.protectKernelImage = true; # kexec_load_disabled, no hibernate
   security.forcePageTableIsolation = true;
   boot.kernelParams = [
@@ -24,7 +23,7 @@
     "kernel.unprivileged_bpf_disabled" = 1;
     "net.core.bpf_jit_harden" = 2;
     "kernel.yama.ptrace_scope" = 2;
-    "kernel.perf_event_paranoid" = 3;
+    "kernel.perf_event_paranoid" = 2;
     "dev.tty.ldisc_autoload" = 0;
     "vm.unprivileged_userfaultfd" = 0;
     "vm.mmap_rnd_bits" = 32;

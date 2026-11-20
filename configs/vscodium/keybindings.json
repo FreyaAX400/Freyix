@@ -1,0 +1,15 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "ctrl+shift+alt+s",
+        "command": "git.stageChange"
+    },
+    {
+        "key": "ctrl+shift+alt+c s",
+        "command": "git.commitStaged"
+    },
+    {
+        "key": "ctrl+shift+alt+s a",
+        "command": "git.stageAll"
+    }
+]

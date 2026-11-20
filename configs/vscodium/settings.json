@@ -1,0 +1,46 @@
+{
+  "verilog.linting.linter": "verilator",
+  "verilog.linting.verilator.arguments": "-Wall --lint-only",
+  "verilog.linting.verilator.runAtFileLocation": true,
+  "C_Cpp.codeAnalysis.runAutomatically": true,
+  "C_Cpp.errorSquiggles": "enabled",
+  "c-cpp-flylint.cppcheck.enable": true,
+  "c-cpp-flylint.cppcheck.standard": [
+    "c++20",
+    "c++23"
+  ],
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.diagnostics.enable": true,
+  "python.analysis.diagnosticMode": "workspace",
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always"
+    }
+  },
+  "shellcheck.enable": true,
+  "shellcheck.run": "onType",
+  "nix.enableLanguageServer": true,
+  "editor.formatOnSave": true,
+  "terraform.languageServer.external": true,
+  "nix.serverPath": "nixd",
+  "nix.serverSettings": {
+    "nixd": {
+      "formatting": {
+        "command": [
+          "nixfmt"
+        ]
+      },
+      "options": {
+        "nixpkgs": {
+          "expr": "import <nixpkgs> { }"
+        }
+      }
+    }
+  },
+  "Lua.misc.executablePath": "lua-language-server",
+  "Lua.diagnostics.globals": [
+    "hl"
+  ],
+  "git.enableSmartCommit": true
+}

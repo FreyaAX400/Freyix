@@ -17,8 +17,5 @@
     pkiBundle = "/var/lib/sbctl";
   };
 
-  # TPM2 auto-unlock needs the systemd initrd.
-  boot.initrd.systemd.enable = true;
-
   services.usbguard.rules = builtins.readFile ./usbguard-rules.conf;
 }
