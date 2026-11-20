@@ -99,5 +99,6 @@
     nix-tree
     sbctl
     tpm2-tools
+    vscodium
   ];
 }
