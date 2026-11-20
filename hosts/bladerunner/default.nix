@@ -1,5 +1,6 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   imports = [
     ../../modules/common.nix
     ../../modules/hardening.nix
@@ -7,9 +8,8 @@
   ];
 
   networking.hostName = "BladeRunner";
-  time.timeZone = "Europe/Oslo";
+  time.timeZone = "United_States/Los_Angeles";
 
-  # Secure Boot via lanzaboote, reusing the existing sbctl keys in /var/lib/sbctl.
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.lanzaboote = {
