@@ -5,7 +5,7 @@
 
   programs.kitty = {
     enable = true;
-    extraConfig = builtins.readFile ./configs/kitty.conf;
+    extraConfig = builtins.readFile ../../configs/kitty.conf;
   };
 
   wayland.windowManager.hyprland = {
