@@ -8,7 +8,7 @@
     extraConfig = builtins.readFile ./configs/kitty.conf;
   };
 
-  programs.hyprland = {
+  wayland.windowManager.hyprland = {
     enable = true;
     extraConfig = builtins.readFile ../../configs/hyprland.lua;
   };
