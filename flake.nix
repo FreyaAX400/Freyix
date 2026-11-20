@@ -24,6 +24,10 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -34,12 +38,15 @@
       disko,
       home-manager,
       lanzaboote,
+      sops-nix,
+      nix-vscode-extensions,
       ...
     }:
     let
       bladerunner = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          sops-nix.nixosModules.sops
           lanzaboote.nixosModules.lanzaboote
           ./hosts/bladerunner
           home-manager.nixosModules.home-manager
@@ -49,6 +56,7 @@
             home-manager.backupFileExtension = "bak";
             home-manager.users.freyaax400 = import ./hosts/bladerunner/home.nix;
           }
+          { nixpkgs.overlays = [ nix-vscode-extensions.overlays.default ]; }
         ];
       };
       zenPkgs = import nixpkgs-zen {
