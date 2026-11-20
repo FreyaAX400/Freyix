@@ -27,10 +27,8 @@
     };
   };
 
-  programs.vscode = {
+  programs.vscodium = {
     enable = true;
-    # FHS wrapper: extensions that ship their own binaries (rust-analyzer, ruff, sumneko lua, terraform-ls)
-    # run unmodified on NixOS, and the tools below are on PATH inside the editor.
     package = pkgs.vscodium.fhsWithPackages (
       ps: with ps; [
         ruff
