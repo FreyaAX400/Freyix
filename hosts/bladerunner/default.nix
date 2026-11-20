@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 {
   imports = [
     ../../modules/common.nix
@@ -17,5 +17,10 @@
     pkiBundle = "/var/lib/sbctl";
   };
 
-  services.usbguard.rules = builtins.readFile ./usbguard-rules.conf;
+  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+  sops.secrets.usbguard-rules = {
+    sopsFile = ../../secrets/usbguard-rules.conf;
+    format = "binary";
+  };
+  services.usbguard.ruleFile = config.sops.secrets.usbguard-rules.path;
 }
