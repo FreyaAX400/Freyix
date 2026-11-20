@@ -13,7 +13,6 @@
     "randomize_kstack_offset=on"
     "vsyscall=none"
     "debugfs=off"
-    "lockdown=integrity" # confidentiality also blocks MSR/perf reads
   ];
 
   boot.kernel.sysctl = {
