@@ -147,6 +147,7 @@
     wiremix
     nh
     nix-tree
+    vscodium
   ];
 
 }
