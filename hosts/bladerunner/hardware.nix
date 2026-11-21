@@ -1,5 +1,3 @@
-# ThinkPad T14s, i5-1145G7. Reuses the existing LUKS2 + btrfs layout from the Arch install:
-# @home and @var_log are kept as-is; @nixos (new root) and @nix are created during install.
 { pkgs, ... }:
 let
   btrfs = [
@@ -11,6 +9,7 @@ in
   nixpkgs.hostPlatform = "x86_64-linux";
   boot.initrd.availableKernelModules = [
     "xhci_pci"
+    50
     "thunderbolt"
     "nvme"
   ];
@@ -34,12 +33,27 @@ in
   fileSystems."/home" = {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
-    options = [ "subvol=@home" ] ++ btrfs ++ [ "nosuid" "nodev" ];
+    options = [
+      "subvol=@home"
+    ]
+    ++ btrfs
+    ++ [
+      "nosuid"
+      "nodev"
+    ];
   };
   fileSystems."/var/log" = {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
-    options = [ "subvol=@var_log" ] ++ btrfs ++ [ "nosuid" "nodev" "noexec" ];
+    options = [
+      "subvol=@var_log"
+    ]
+    ++ btrfs
+    ++ [
+      "nosuid"
+      "nodev"
+      "noexec"
+    ];
   };
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/32F8-61CF";
