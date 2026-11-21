@@ -33,7 +33,7 @@ in
     hardware.bluetooth.enable = true;
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-    environment.systemPackages = with pkgs; [
+    home.systemPackages = with pkgs; [
       kitty # kept system-wide so a failed home-manager activation still leaves a terminal
       wl-clipboard
       grim
