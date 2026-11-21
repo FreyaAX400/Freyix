@@ -1,5 +1,6 @@
-# Shared baseline for laptops/desktops that aren't gaming rigs.
-# MoLK's configuration.nix still carries its own copy; fold it into this later.
+# Baseline every Freyix NixOS host gets. Always on (no option): if a machine
+# shouldn't have this, it shouldn't import ./default.nix.
+# Per-host things (hostName, timeZone, bootloader, hardware) live in hosts/<name>/.
 { pkgs, ... }:
 {
   system.stateVersion = "26.05";
@@ -44,28 +45,7 @@
     shell = pkgs.bash;
   };
 
-  programs.hyprland.enable = true;
-  services.greetd = {
-    enable = true;
-    settings.default_session = {
-      command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd start-hyprland";
-      user = "greeter";
-    };
-  };
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  security.polkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
-  security.rtkit.enable = true;
-  hardware.bluetooth.enable = true;
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
   environment.systemPackages = with pkgs; [
-    kitty
     git
     neovim
     wget
@@ -75,12 +55,7 @@
     usbutils
     btrfs-progs
     compsize
-    wl-clipboard
-    grim
-    slurp
     fastfetch
-    librewolf
-    xdg-utils
     ripgrep
     fd
     unzip
@@ -92,13 +67,7 @@
     nvme-cli
     ethtool
     inetutils
-    brightnessctl
-    wireplumber
-    wiremix
-    nh
     nix-tree
-    sbctl
-    tpm2-tools
-    vscodium
+    nh
   ];
 }

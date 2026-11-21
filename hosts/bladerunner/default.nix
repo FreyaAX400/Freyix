@@ -2,10 +2,12 @@
 {
   boot.kernelPackages = pkgs.linuxPackages_latest;
   imports = [
-    ../../modules/common.nix
-    ../../modules/hardening.nix
+    ../../modules/nixos
     ./hardware.nix
   ];
+
+  freyix.desktop.enable = true;
+  freyix.hardening.enable = true;
 
   networking.hostName = "BladeRunner";
   time.timeZone = "United_States/Los_Angeles";
@@ -16,6 +18,8 @@
     enable = true;
     pkiBundle = "/var/lib/sbctl";
   };
+
+  environment.systemPackages = [ pkgs.sbctl ];
 
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
   sops.secrets.usbguard-rules = {
