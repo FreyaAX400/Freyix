@@ -45,6 +45,8 @@
     shell = pkgs.bash;
   };
 
+  services.tailscale.enable = true;
+
   environment.systemPackages = with pkgs; [
     git
     neovim

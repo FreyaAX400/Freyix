@@ -89,9 +89,8 @@ in
     networking.networkmanager.ethernet.macAddress = "random";
     services.openssh.enable = lib.mkForce false; # access is via Tailscale SSH
     services.tailscale = {
-      enable = true;
+      # base enables and sets ssh this forces a client device only
       useRoutingFeatures = "client";
-      extraUpFlags = [ "--ssh" ];
     };
     services.fail2ban = {
       enable = true;
