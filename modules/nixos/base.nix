@@ -45,7 +45,10 @@
     shell = pkgs.bash;
   };
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    extraUpFlags = [ "--ssh" ];
+  };
 
   environment.systemPackages = with pkgs; [
     git
