@@ -8,7 +8,9 @@
   imports = [
     ./base.nix
     ./desktop.nix
+    ./gaming.nix
     ./hardening.nix
     ./nh.nix
+    ./nvidia.nix
   ];
 }

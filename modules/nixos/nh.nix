@@ -5,6 +5,7 @@
 #   rebuild --dry           extra args pass through to nh (any leading non-flag arg is the host)
 {
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -32,7 +33,7 @@ in
 {
   programs.nh = {
     enable = true;
-    flake = "/home/freyaax400/Freyix"; # sets NH_OS_FLAKE; adjust if the repo lives elsewhere
+    flake = lib.mkDefault "/home/freyaax400/Documents/Freyix"; # sets NH_OS_FLAKE; override per host if the repo lives elsewhere
   };
   environment.systemPackages = [ rebuild ];
 }

@@ -73,6 +73,5 @@
     ethtool
     inetutils
     nix-tree
-    nh
   ];
 }

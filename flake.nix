@@ -1,5 +1,5 @@
 {
-  description = "MoLK";
+  description = "Freyix";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -33,7 +33,6 @@
   outputs =
     {
       nixpkgs,
-      agenix,
       nixpkgs-zen,
       disko,
       home-manager,
@@ -43,50 +42,49 @@
       ...
     }:
     let
-      bladerunner = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          sops-nix.nixosModules.sops
-          lanzaboote.nixosModules.lanzaboote
-          ./hosts/bladerunner
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "bak";
-            home-manager.users.freyaax400 = import ./hosts/bladerunner/home.nix;
-          }
-          { nixpkgs.overlays = [ nix-vscode-extensions.overlays.default ]; }
-        ];
-      };
+      # One NixOS host: hosts/<name>/default.nix + hosts/<name>/home.nix (home-manager).
+      mkHost =
+        {
+          name,
+          modules ? [ ],
+          specialArgs ? { },
+        }:
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          inherit specialArgs;
+          modules = [
+            ./hosts/${name}
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                backupFileExtension = "bak";
+                users.freyaax400 = import ./hosts/${name}/home.nix;
+              };
+              nixpkgs.overlays = [ nix-vscode-extensions.overlays.default ];
+            }
+          ]
+          ++ modules;
+        };
+
       zenPkgs = import nixpkgs-zen {
         system = "x86_64-linux";
         config.allowUnfree = true;
       };
-      target = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          zenKernel = zenPkgs.linux_zen;
-        };
-        modules = [
-          disko.nixosModules.disko
-          (import ./disko.nix { })
-          ./hardware-configuration.nix
-          ./configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.freyaax400 = import ./home.nix;
-          }
-        ];
+
+      target = mkHost {
+        name = "molk";
+        specialArgs.zenKernel = zenPkgs.linux_zen;
+        modules = [ disko.nixosModules.disko ];
       };
 
+      # MoLK's disk layout with the two NVMe drives swapped, for the installer ISO.
       swapped = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
-          (import ./disko.nix {
+          (import ./hosts/molk/disko.nix {
             big = "/dev/nvme1n1";
             small = "/dev/nvme0n1";
           })
@@ -94,12 +92,20 @@
       };
     in
     {
-      nixosConfigurations.MoLK = target;
-      nixosConfigurations.BladeRunner = bladerunner;
-      nixosConfigurations.installer = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit target swapped; };
-        modules = [ ./installer.nix ];
+      nixosConfigurations = {
+        MoLK = target;
+        BladeRunner = mkHost {
+          name = "bladerunner";
+          modules = [
+            sops-nix.nixosModules.sops
+            lanzaboote.nixosModules.lanzaboote
+          ];
+        };
+        installer = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit target swapped; };
+          modules = [ ./installer.nix ];
+        };
       };
     };
 }
