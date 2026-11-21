@@ -1,5 +1,10 @@
 # Hyprland session, kitty and LibreWolf. Pairs with modules/nixos/desktop.nix.
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.freyix.desktop;
 in
@@ -30,5 +35,6 @@ in
         "webgl.disabled" = false;
       };
     };
+    environment.systemPackages = with pkgs; [ noctalia ];
   };
 }
