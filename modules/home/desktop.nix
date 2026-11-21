@@ -35,5 +35,10 @@ in
         "webgl.disabled" = false;
       };
     };
+
+    programs.noctalia = {
+      enable = true;
+      systemd.enable = true;
+    };
   };
 }
