@@ -5,3 +5,4 @@ result
 *.sh
 notflake.nix
 *.patch
+core.*
