@@ -35,6 +35,5 @@ in
         "webgl.disabled" = false;
       };
     };
-    environment.systemPackages = with pkgs; [ noctalia ];
   };
 }
