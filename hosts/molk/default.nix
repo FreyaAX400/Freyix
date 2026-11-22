@@ -16,7 +16,7 @@
   freyix.nvidia.enable = true;
 
   networking.hostName = "MoLK";
-  time.timeZone = "United_States/Los_Angeles";
+  time.timeZone = "America/Los_Angeles";
 
   # --- boot / kernel ---
   boot.loader.systemd-boot = {

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   boot.kernelPackages = pkgs.linuxPackages_latest;
   imports = [
@@ -10,7 +15,7 @@
   freyix.hardening.enable = true;
 
   networking.hostName = "BladeRunner";
-  time.timeZone = "United_States/Los_Angeles";
+  time.timeZone = "America/Los_Angeles";
 
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.efi.canTouchEfiVariables = true;
