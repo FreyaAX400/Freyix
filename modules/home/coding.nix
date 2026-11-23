@@ -1,5 +1,3 @@
-# VSCodium (FHS-wrapped) with the language tooling used across projects.
-# Needs the nix-vscode-extensions overlay for `pkgs.open-vsx` (see flake.nix).
 {
   config,
   lib,
@@ -13,6 +11,8 @@ in
   options.freyix.coding.enable = lib.mkEnableOption "VSCodium and language tooling";
 
   config = lib.mkIf cfg.enable {
+    xdg.configFile."VSCodium/User/settings.json".force = true;
+
     programs.vscodium = {
       enable = true;
       package = pkgs.vscodium.fhsWithPackages (
@@ -20,8 +20,8 @@ in
           ruff
           terraform
           terraform-ls
-          clang-tools # clangd
-          cppcheck # c-cpp-flylint
+          clang-tools
+          cppcheck
           shellcheck
           nixd
           nixfmt
