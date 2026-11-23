@@ -11,8 +11,6 @@ in
   options.freyix.coding.enable = lib.mkEnableOption "VSCodium and language tooling";
 
   config = lib.mkIf cfg.enable {
-    xdg.configFile."VSCodium/User/settings.json".force = true;
-
     programs.vscodium = {
       enable = true;
       package = pkgs.vscodium.fhsWithPackages (
