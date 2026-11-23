@@ -101,6 +101,13 @@
             lanzaboote.nixosModules.lanzaboote
           ];
         };
+        gBladeRunner = mkHost {
+          name = "gbladerunner";
+          modules = [
+            sops-nix.nixosModules.sops
+            lanzaboote.nixosModules.lanzaboote
+          ];
+        };
         installer = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit target swapped; };
