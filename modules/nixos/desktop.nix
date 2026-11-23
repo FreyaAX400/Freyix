@@ -33,6 +33,7 @@ in
     hardware.bluetooth.enable = true;
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+    services.upower.enable = true;
     environment.systemPackages = with pkgs; [
       kitty # kept system-wide so a failed home-manager activation still leaves a terminal
       wl-clipboard
@@ -43,6 +44,7 @@ in
       wireplumber
       wiremix
       noctalia
+      upower
     ];
   };
 }

@@ -20,6 +20,7 @@ hl.monitor({
 
 -- Set programs that you use
 local terminal = "kitty"
+local ide = "codium"
 
 
 -------------------
@@ -93,7 +94,7 @@ hl.config({
             enabled = true,
             range = 4,
             render_power = 3,
-            color = 0xee1a1a1a,
+            color = "0xee1a1a1a",
         },
 
         blur = {
@@ -218,6 +219,7 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + SHIFT + v", hl.dsp.exec_cmd(ide))
 local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 hl.bind(mainMod .. " + M",
@@ -269,6 +271,8 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+
+-- Noctalia
 
 local ipc = "noctalia msg "
 
