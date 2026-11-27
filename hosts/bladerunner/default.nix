@@ -13,6 +13,7 @@
 
   freyix.desktop.enable = true;
   freyix.hardening.enable = true;
+  freyix.gaming.enable = true;
 
   networking.hostName = "BladeRunner";
   time.timeZone = "America/Los_Angeles";
